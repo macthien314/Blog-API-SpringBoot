@@ -1,4 +1,5 @@
 package com.mt.blog.entities;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,24 +11,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table; 
+import javax.persistence.Table;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Getter; 
-@Entity 
-@Table(name = "users") 
+
+@Entity
+@Table(name = "categories")
 @NoArgsConstructor 
 @Getter 
 @Setter
-public class User {
-	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO) 
-	private int id; 
-	@Column(name = "user_name", nullable = false, length = 100)
-	private String name; 
-	private String email;
-	private String password;
-	private String about;
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+public class Category {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer categoryId;
+
+	@Column(name = "title", length = 100, nullable = false)
+	private String categoryTitle;
+
+	@Column(name = "description")
+	private String categoryDescription;
+	
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Post> posts = new ArrayList<>();
+
 }
