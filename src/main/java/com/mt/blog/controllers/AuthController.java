@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.mt.blog.exceptions.ApiException;
 import com.mt.blog.payloads.UserDto;
 import com.mt.blog.security.JwtAuthRequest;
@@ -35,10 +34,11 @@ public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	
 
 	@PostMapping("/login")
 	public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest request) throws Exception {
-		System.out.println("request" + request + "AuthController 35");
 		this.authenticate(request.getUsername(), request.getPassword());
 
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
@@ -67,5 +67,9 @@ public class AuthController {
 
 		return new ResponseEntity<UserDto>(registeredUser, HttpStatus.CREATED);
 	}
+	
+	 
+
+	
 
 }
